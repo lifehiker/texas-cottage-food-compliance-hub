@@ -1,6 +1,6 @@
 # FORGE PRD Tasks
 
-Last updated: 2026-05-14 after deployment-auth remediation, Docker env hardening, rebuild, lint, dev-server startup, standalone-server verification, local auth smoke test, route smoke tests, and Docker availability check
+Last updated: 2026-05-14 after deployment-auth remediation, Docker env-name alignment, request-origin checkout hardening, rebuild, lint, dev-server startup, standalone-server verification, local auth smoke test, route smoke tests, and Docker availability check
 
 Status legend:
 - [x] Complete
@@ -153,6 +153,7 @@ Execution order: foundation -> data/auth -> core workflows -> secondary workflow
 - [x] Ensure Dockerfile only copies directories that exist
 - [x] Confirm standalone Next.js output works with Docker layout
 - [x] Ensure Docker env names match runtime code and auth host-trust requirements
+- [x] Ensure runtime-generated checkout URLs do not depend on a missing site-url env
 - [~] Test `docker build .` if Docker is available
 - [x] Confirm environment-variable expectations are documented
 
@@ -176,7 +177,7 @@ Execution order: foundation -> data/auth -> core workflows -> secondary workflow
 
 ## Final verification notes
 
-- [x] Production build passes on 2026-05-14 after the deployment auth/trust-host fix.
+- [x] Production build passes on 2026-05-14 after the deployment auth/trust-host fix plus Docker site-url env alignment.
 - [x] `npm run lint` passes on 2026-05-14.
 - [x] Dev server starts cleanly on 2026-05-14.
 - [x] Generated standalone server starts cleanly on 2026-05-14.
@@ -184,4 +185,5 @@ Execution order: foundation -> data/auth -> core workflows -> secondary workflow
 - [x] Anonymous `/dashboard` access correctly redirects with `307` to `/login`.
 - [x] Local credentials auth flow was exercised through `/api/auth/callback/credentials`, and authenticated `/dashboard` access returned `200`.
 - [x] `/api/auth/session` returned a normal null session with production-style forwarded host headers in both `next dev` and standalone runtime, confirming the `UntrustedHost` deploy failure is fixed.
+- [x] Stripe checkout success/cancel URLs now derive from the incoming request origin at runtime instead of relying on a baked-in localhost fallback.
 - [x] Stripe checkout fallback was exercised through `/api/stripe/checkout` and correctly returned guarded `503` behavior without Stripe credentials.

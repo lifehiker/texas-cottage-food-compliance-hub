@@ -19,7 +19,7 @@ Last updated: 2026-05-14
 
 - NextAuth v5 setup with Prisma adapter: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts)
 - Auth route handler: [src/app/api/auth/[...nextauth]/route.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/api/auth/[...nextauth]/route.ts)
-- Proxy-safe host trust, container env alignment, and secret fallback for deployment: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts), [Dockerfile](/opt/forge-builds/texas-cottage-food-compliance-hub/Dockerfile), [HUMAN_INPUT_NEEDED.md](/opt/forge-builds/texas-cottage-food-compliance-hub/HUMAN_INPUT_NEEDED.md)
+- Proxy-safe host trust, container env alignment, and secret fallback for deployment: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts), [Dockerfile](/opt/forge-builds/texas-cottage-food-compliance-hub/Dockerfile), [src/lib/site.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/lib/site.ts), [HUMAN_INPUT_NEEDED.md](/opt/forge-builds/texas-cottage-food-compliance-hub/HUMAN_INPUT_NEEDED.md)
 - Public login and signup entry routes: [src/app/login/page.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/login/page.tsx), [src/app/signup/page.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/signup/page.tsx)
 - Local credentials sign-in UI: [src/components/auth/sign-in-card.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/components/auth/sign-in-card.tsx)
 
@@ -56,7 +56,7 @@ Last updated: 2026-05-14
 
 ## Billing, Email, Analytics, And Fallbacks
 
-- Stripe lazy initialization and checkout fallback: [src/lib/billing.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/lib/billing.ts), [src/app/api/stripe/checkout/route.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/api/stripe/checkout/route.ts)
+- Stripe lazy initialization, request-origin checkout URLs, and checkout fallback: [src/lib/billing.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/lib/billing.ts), [src/app/api/stripe/checkout/route.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/api/stripe/checkout/route.ts), [src/lib/site.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/lib/site.ts)
 - Stripe webhook guard: [src/app/api/webhooks/stripe/route.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/api/webhooks/stripe/route.ts)
 - Resend lazy initialization and fallback: [src/lib/email.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/lib/email.ts)
 - Welcome, saved-label, and subscription emails: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts), [src/lib/actions.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/lib/actions.ts), [src/app/api/webhooks/stripe/route.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/api/webhooks/stripe/route.ts)

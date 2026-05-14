@@ -35,8 +35,8 @@ export async function POST(request: NextRequest) {
     mode: plan === "educator" ? "payment" : "subscription",
     customer_email: session.user.email,
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: absoluteUrl("/pricing?checkout=success"),
-    cancel_url: absoluteUrl("/pricing?checkout=cancelled"),
+    success_url: absoluteUrl("/pricing?checkout=success", request.nextUrl.origin),
+    cancel_url: absoluteUrl("/pricing?checkout=cancelled", request.nextUrl.origin),
     metadata: {
       userId: session.user.id,
       plan,

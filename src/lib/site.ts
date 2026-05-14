@@ -3,7 +3,10 @@ export const siteConfig = {
   shortName: "Compliance Hub",
   description:
     "Generate Texas cottage food labels, check product eligibility, prep for market day, and save compliance workflows in one Texas-focused workspace.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.AUTH_URL ||
+    "http://localhost:3000",
   sourceUrl: "https://www.dshs.texas.gov/foodestablishments/cottagefood",
   farmersMarketUrl:
     "https://www.dshs.texas.gov/retail-food-establishments/texas-farmers-market",
@@ -85,6 +88,6 @@ export const plans = [
   },
 ];
 
-export function absoluteUrl(path = "/") {
-  return new URL(path, siteConfig.url).toString();
+export function absoluteUrl(path = "/", baseUrl = siteConfig.url) {
+  return new URL(path, baseUrl).toString();
 }
