@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6efe6;
+  --surface: #fffdf8;
+  --surface-strong: #f8f1e7;
+  --foreground: #1d140d;
+  --muted: #645448;
+  --border: rgba(86, 57, 33, 0.14);
+  --brand: #b55d33;
+  --brand-dark: #6f2f1c;
+  --accent: #d8a463;
+  --sage: #73805f;
+  --radius: 22px;
+  --shadow: 0 18px 60px rgba(98, 64, 34, 0.13);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-accent: var(--accent);
+  --color-sage: var(--sage);
+  --font-sans: "Segoe UI", "Avenir Next", "Trebuchet MS", sans-serif;
+  --font-mono: "SFMono-Regular", "Consolas", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(216, 164, 99, 0.3), transparent 28%),
+    radial-gradient(circle at right 15%, rgba(115, 128, 95, 0.17), transparent 24%),
+    linear-gradient(180deg, #fff9f1 0%, #f6efe6 42%, #f2e7d9 100%);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(181, 93, 51, 0.18);
+}
+
+.paper-grid {
+  background-image:
+    linear-gradient(rgba(181, 93, 51, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(181, 93, 51, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.print-shell {
+  background: white;
+  color: #111827;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-card {
+    box-shadow: none !important;
+    border-color: #d1d5db !important;
+  }
+}
