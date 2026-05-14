@@ -1,6 +1,6 @@
 # FORGE PRD Tasks
 
-Last updated: 2026-05-14 after deployment-auth remediation, Docker env-name alignment, request-origin checkout hardening, rebuild, lint, dev-server startup, standalone-server verification, local auth smoke test, route smoke tests, and Docker availability check
+Last updated: 2026-05-14 after full PRD re-audit, clean production rebuild, lint, dev-server smoke tests, local credentials auth verification, fresh standalone-output verification, and Docker daemon availability check
 
 Status legend:
 - [x] Complete
@@ -173,11 +173,11 @@ Execution order: foundation -> data/auth -> core workflows -> secondary workflow
 
 ## Remaining Blocker
 
-- [~] `docker build .` still depends on Docker socket access in this workspace. The Dockerfile has been validated structurally against the current standalone build output, but an actual image build can only run where Docker daemon access is available.
+- [~] `docker build .` still depends on Docker socket access in this workspace. `docker --version` succeeds, but the daemon rejected access to `/var/run/docker.sock`, so the Dockerfile could only be validated against a fresh local standalone build rather than a completed image build.
 
 ## Final verification notes
 
-- [x] Production build passes on 2026-05-14 after the deployment auth/trust-host fix plus Docker site-url env alignment.
+- [x] Production build passes on 2026-05-14 after a fresh rebuild in this turn.
 - [x] `npm run lint` passes on 2026-05-14.
 - [x] Dev server starts cleanly on 2026-05-14.
 - [x] Generated standalone server starts cleanly on 2026-05-14.

@@ -798,8 +798,8 @@ Apps that crash on startup due to missing env vars will fail every deployment cy
 Only include variables the app actually uses. If the PRD doesn't require a feature, don't add those variables.
 
 ```bash
-# App URL (optional but recommended for canonical URLs and metadata)
-NEXT_PUBLIC_SITE_URL="https://yourdomain.com"
+# App URL (optional — remove if not needed)
+NEXT_PUBLIC_APP_URL="https://yourdomain.com"
 
 # --- Only include below if PRD requires data persistence ---
 # Database (SQLite — no external service required)
@@ -897,3 +897,4 @@ If the PRD does NOT require auth, do NOT add NextAuth at all. No middleware, no 
 - **Use `node:20-slim` (not `node:20-alpine`)** — Debian slim avoids Alpine musl/libssl issues. Add `RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*` to BOTH the builder and runner stages for Prisma's schema engine.
 - **Set `binaryTargets` in schema.prisma** — always include `binaryTargets = ["native", "debian-openssl-3.0.x"]` in the Prisma generator block so Prisma generates the correct engine binary for the Debian container environment.
 - **Copy full node_modules in the runner stage** — do NOT selectively copy `node_modules/.prisma`, `node_modules/prisma`, `node_modules/@prisma` separately. Instead use `COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules` to copy everything. Prisma v6+ CLI has deep transitive deps (`@prisma/config` → `effect`, `c12`, etc.) that break if not all present.
+

@@ -1,6 +1,6 @@
 # Forge Completion Audit
 
-Last updated: 2026-05-14
+Last updated: 2026-05-14 after fresh rebuild and runtime re-verification
 
 ## Foundation
 
@@ -90,7 +90,7 @@ The app still runs without those credentials because every integration path is g
 - `npm run build` passes on 2026-05-14.
 - `npm run lint` passes on 2026-05-14.
 - `npm run dev` starts cleanly on 2026-05-14.
-- `node .next/standalone/server.js` starts cleanly on 2026-05-14.
+- Fresh `output: "standalone"` artifacts were regenerated on 2026-05-14, and `node .next/standalone/server.js` started cleanly on port `3100`.
 - Verified route responses on 2026-05-14:
   - `200`: `/`, `/pricing`, `/login`, `/signup`, `/texas-cottage-food-label-generator`, `/texas-cottage-food-checklist`, `/can-i-sell-this-in-texas`, `/texas-cottage-food-training`
   - `307` anonymous redirect: `/dashboard` to `/login`
@@ -98,4 +98,4 @@ The app still runs without those credentials because every integration path is g
   - normal null-session response from `/api/auth/session` with forwarded production host headers in dev and standalone runtime
 - Verified guarded billing fallback on 2026-05-14:
   - `503` from `/api/stripe/checkout` without Stripe credentials
-- `docker build .` could not be completed because Docker socket access is denied in this environment, not because of a Dockerfile syntax or app-build failure.
+- `docker --version` succeeds, but `docker build .` could not be completed because Docker socket access is denied in this environment, not because of a Dockerfile syntax or app-build failure.
