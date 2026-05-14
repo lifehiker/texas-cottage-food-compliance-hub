@@ -35,11 +35,14 @@ export async function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <Link href="/dashboard" className="hidden text-sm text-muted sm:inline-block">
-            {session?.user ? "Dashboard" : "Saved documents"}
+          <Link
+            href={session?.user ? "/dashboard" : "/login"}
+            className="hidden text-sm text-muted sm:inline-block"
+          >
+            {session?.user ? "Dashboard" : "Login"}
           </Link>
           <Button asChild variant="default" size="sm">
-            <Link href={session?.user ? "/dashboard" : "/pricing"}>
+            <Link href={session?.user ? "/dashboard" : "/signup"}>
               {session?.user ? "Open workspace" : "Start free"}
             </Link>
           </Button>

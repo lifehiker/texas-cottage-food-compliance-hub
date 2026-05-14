@@ -1,6 +1,6 @@
 # FORGE PRD Tasks
 
-Last updated: 2026-05-14 after code audit, build, lint, dev-server startup, auth smoke test, route smoke tests, and Docker availability check
+Last updated: 2026-05-14 after deployment-auth remediation, rebuild, lint, dev-server startup, host-trust verification, local auth smoke test, route smoke tests, and Docker availability check
 
 Status legend:
 - [x] Complete
@@ -37,10 +37,10 @@ Execution order: foundation -> data/auth -> core workflows -> secondary workflow
 ## 3. Auth
 
 - [x] NextAuth v5 base setup exists
-- [x] Google OAuth path exists with env guards
-- [x] Safe fallback sign-in path exists without Google credentials
+- [x] Deployment-safe local credentials auth exists
+- [x] Host trust is configured for proxy deployments to prevent `UntrustedHost`
 - [x] Audit auth session shaping and route protection
-- [x] Verify dashboard/save flows work for demo auth and do not crash without OAuth credentials
+- [x] Verify dashboard/save flows work for local auth and do not crash without external auth credentials
 
 ## 4. Core Workflows
 
@@ -171,14 +171,15 @@ Execution order: foundation -> data/auth -> core workflows -> secondary workflow
 
 ## Remaining Blocker
 
-- [~] `docker build .` could not be executed to completion because the workspace lacks permission to access `/var/run/docker.sock`, even though Docker is installed. The Dockerfile itself is present and structured for the current standalone build output.
+- [~] `docker build .` still depends on Docker socket access in this workspace. The Dockerfile has been validated structurally against the current standalone build output, but an actual image build can only run where Docker daemon access is available.
 
 ## Final verification notes
 
-- [x] Production build passes on 2026-05-14 after the final analytics event-tracking fix.
+- [x] Production build passes on 2026-05-14 after the deployment auth/trust-host fix.
 - [x] `npm run lint` passes on 2026-05-14.
 - [x] Dev server starts cleanly on 2026-05-14.
-- [x] Route checks returned `200` for `/`, `/pricing`, `/texas-cottage-food-label-generator`, `/texas-cottage-food-checklist`, `/can-i-sell-this-in-texas`, and `/texas-cottage-food-training`.
-- [x] Anonymous `/dashboard` access correctly redirects with `307`.
-- [x] Demo credential auth flow was exercised through `/api/auth/callback/credentials`, and authenticated `/dashboard` access returned `200`.
+- [x] Route checks returned `200` for `/`, `/pricing`, `/login`, `/signup`, `/texas-cottage-food-label-generator`, `/texas-cottage-food-checklist`, `/can-i-sell-this-in-texas`, and `/texas-cottage-food-training`.
+- [x] Anonymous `/dashboard` access correctly redirects with `307` to `/login`.
+- [x] Local credentials auth flow was exercised through `/api/auth/callback/credentials`, and authenticated `/dashboard` access returned `200`.
+- [x] `/api/auth/session` returned a normal null session with production-style forwarded host headers, confirming the `UntrustedHost` deploy failure is fixed.
 - [x] Stripe checkout fallback was exercised through `/api/stripe/checkout` and correctly returned guarded `503` behavior without Stripe credentials.

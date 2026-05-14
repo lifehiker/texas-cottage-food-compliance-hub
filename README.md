@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Texas Cottage Food Compliance Hub
+
+Texas-specific compliance workflows for home bakers and market sellers. The app combines a label generator, eligibility checker, checklist tracking, reusable templates, and source-linked guidance in a Next.js 15 app that can run without external credentials.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js 15 App Router
+- TypeScript
+- Tailwind CSS
+- Prisma with SQLite
+- NextAuth v5 local credentials flow
+- Stripe and Resend with guarded fallbacks when credentials are absent
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+Copy `.env.example` to `.env` for local development if needed. The app works locally with:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+DATABASE_URL="file:./prisma/dev.db"
+AUTH_SECRET="local-dev-secret-change-me"
+AUTH_TRUST_HOST="true"
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+External integrations are optional. See [HUMAN_INPUT_NEEDED.md](/opt/forge-builds/texas-cottage-food-compliance-hub/HUMAN_INPUT_NEEDED.md) for the production-only credentials.
 
-## Deploy on Vercel
+## Verification
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Docker deployment expects standalone Next.js output and a writable SQLite path. The checked-in `Dockerfile` is configured for that flow.

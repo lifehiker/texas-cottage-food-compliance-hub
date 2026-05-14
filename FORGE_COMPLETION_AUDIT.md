@@ -19,8 +19,9 @@ Last updated: 2026-05-14
 
 - NextAuth v5 setup with Prisma adapter: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts)
 - Auth route handler: [src/app/api/auth/[...nextauth]/route.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/api/auth/[...nextauth]/route.ts)
-- Google OAuth with env guards: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts)
-- Demo sign-in fallback when OAuth is unavailable: [src/components/auth/sign-in-card.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/components/auth/sign-in-card.tsx)
+- Proxy-safe host trust and secret fallback for deployment: [src/auth.ts](/opt/forge-builds/texas-cottage-food-compliance-hub/src/auth.ts), [Dockerfile](/opt/forge-builds/texas-cottage-food-compliance-hub/Dockerfile)
+- Public login and signup entry routes: [src/app/login/page.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/login/page.tsx), [src/app/signup/page.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/app/signup/page.tsx)
+- Local credentials sign-in UI: [src/components/auth/sign-in-card.tsx](/opt/forge-builds/texas-cottage-food-compliance-hub/src/components/auth/sign-in-card.tsx)
 
 ## Core Workflows
 
@@ -78,7 +79,6 @@ Last updated: 2026-05-14
 
 ## Deferred External-Credential Items
 
-- Google OAuth requires real Google client credentials before the Google button can be activated in production.
 - Stripe checkout and subscription activation require real Stripe keys, price IDs, and a webhook secret.
 - Resend delivery requires a verified sender and API key.
 - GA4/PostHog require public analytics keys if tracking should be active.
@@ -91,9 +91,10 @@ The app still runs without those credentials because every integration path is g
 - `npm run lint` passes on 2026-05-14.
 - `npm run dev` starts cleanly on 2026-05-14.
 - Verified route responses on 2026-05-14:
-  - `200`: `/`, `/pricing`, `/texas-cottage-food-label-generator`, `/texas-cottage-food-checklist`, `/can-i-sell-this-in-texas`, `/texas-cottage-food-training`
-  - `307` anonymous redirect: `/dashboard`
-  - `200` authenticated access after demo credential sign-in: `/dashboard`
+  - `200`: `/`, `/pricing`, `/login`, `/signup`, `/texas-cottage-food-label-generator`, `/texas-cottage-food-checklist`, `/can-i-sell-this-in-texas`, `/texas-cottage-food-training`
+  - `307` anonymous redirect: `/dashboard` to `/login`
+  - `200` authenticated access after local credentials sign-in: `/dashboard`
+  - normal null-session response from `/api/auth/session` with forwarded production host headers
 - Verified guarded billing fallback on 2026-05-14:
   - `503` from `/api/stripe/checkout` without Stripe credentials
 - `docker build .` could not be completed because Docker socket access is denied in this environment, not because of a Dockerfile syntax or app-build failure.

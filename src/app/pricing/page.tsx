@@ -12,10 +12,6 @@ export const metadata = buildMetadata(
 );
 
 export default function PricingPage() {
-  const googleEnabled = Boolean(
-    process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET,
-  );
-
   return (
     <PageShell
       badge="Pricing"
@@ -23,7 +19,7 @@ export default function PricingPage() {
       description="The product keeps the information public and puts the paywall around saved workflows, reusable templates, and advanced exports."
     >
       <div className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr]">
-        <SignInCard googleEnabled={googleEnabled} />
+        <SignInCard />
         <div className="grid gap-6 lg:grid-cols-2">
           {plans.map((plan) => (
             <Card key={plan.id} className="p-6">

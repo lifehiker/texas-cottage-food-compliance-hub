@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardLabelsPage() {
   const session = await auth();
-  if (!session?.user) redirect("/pricing");
+  if (!session?.user) redirect("/login");
 
   const labels = await getDb().labelDocument.findMany({
     where: { userId: session.user.id },

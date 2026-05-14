@@ -1,7 +1,7 @@
 # Human Input Needed
 
 The app runs locally without external credentials by using:
-- demo credential sign-in instead of Google OAuth
+- built-in local credentials sign-in
 - guarded Stripe checkout fallbacks
 - guarded Resend email fallbacks
 - optional analytics no-ops
@@ -9,16 +9,14 @@ The app runs locally without external credentials by using:
 
 Provide the following only when you want to activate those production integrations.
 
-## Required For Google OAuth
+## Recommended For Production Auth
 
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
+- `AUTH_SECRET`
 
 Steps:
-1. Create an OAuth client in Google Cloud.
-2. Add the production callback URL: `https://your-domain.com/api/auth/callback/google`
-3. Set `NEXTAUTH_URL` to your public site URL.
-4. Set a strong `NEXTAUTH_SECRET`.
+1. Generate a strong secret, for example with `openssl rand -base64 32`.
+2. Set `AUTH_SECRET` in production to override the baked-in fallback secret.
+3. Leave `AUTH_TRUST_HOST=true` so Auth.js accepts the deployment host behind the proxy.
 
 ## Required For Stripe Billing
 
