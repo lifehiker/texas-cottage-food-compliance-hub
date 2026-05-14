@@ -12,11 +12,15 @@ Provide the following only when you want to activate those production integratio
 ## Recommended For Production Auth
 
 - `AUTH_SECRET`
+- `NEXT_PUBLIC_SITE_URL`
+- Optional: `AUTH_URL` if your reverse proxy does not forward the public host/protocol cleanly
 
 Steps:
 1. Generate a strong secret, for example with `openssl rand -base64 32`.
 2. Set `AUTH_SECRET` in production to override the baked-in fallback secret.
-3. Leave `AUTH_TRUST_HOST=true` so Auth.js accepts the deployment host behind the proxy.
+3. Set `NEXT_PUBLIC_SITE_URL` to the public HTTPS origin for the deployment.
+4. Leave `AUTH_TRUST_HOST=true` so Auth.js accepts the deployment host behind the proxy.
+5. If auth redirects still point at an internal hostname, set `AUTH_URL` to the same public HTTPS origin.
 
 ## Required For Stripe Billing
 
