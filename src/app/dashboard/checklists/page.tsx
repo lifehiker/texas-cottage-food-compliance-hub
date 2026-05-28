@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 import { auth } from "@/auth";
 import { getDb } from "@/lib/db";
 import { PageShell } from "@/components/layout/page-shell";
@@ -9,12 +7,13 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardChecklistsPage() {
   const session = await auth();
-  if (!session?.user) redirect("/login");
 
-  const progress = await getDb().checklistProgress.findMany({
-    where: { userId: session.user.id },
-    orderBy: { updatedAt: "desc" },
-  });
+  const progress = session?.user
+    ? await getDb().checklistProgress.findMany({
+        where: { userId: session.user.id },
+        orderBy: { updatedAt: "desc" },
+      })
+    : [];
 
   return (
     <PageShell
