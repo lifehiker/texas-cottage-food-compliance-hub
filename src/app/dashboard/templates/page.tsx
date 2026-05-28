@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 import { auth } from "@/auth";
 import { ensureTemplateSeed } from "@/lib/data";
 import { getDb } from "@/lib/db";
@@ -10,7 +8,6 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardTemplatesPage() {
   const session = await auth();
-  if (!session?.user) redirect("/login");
 
   await ensureTemplateSeed();
   const rows = await getDb().template.findMany({ orderBy: { title: "asc" } });
