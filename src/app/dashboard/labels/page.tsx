@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 import { auth } from "@/auth";
 import { getDb } from "@/lib/db";
 import { PageShell } from "@/components/layout/page-shell";
@@ -9,12 +7,13 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardLabelsPage() {
   const session = await auth();
-  if (!session?.user) redirect("/login");
 
-  const labels = await getDb().labelDocument.findMany({
-    where: { userId: session.user.id },
-    orderBy: { updatedAt: "desc" },
-  });
+  const labels = session?.user
+    ? await getDb().labelDocument.findMany({
+        where: { userId: session.user.id },
+        orderBy: { updatedAt: "desc" },
+      })
+    : [];
 
   return (
     <PageShell
