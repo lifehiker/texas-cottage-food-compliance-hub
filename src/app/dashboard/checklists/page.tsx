@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardChecklistsPage() {
   const session = await auth();
 
-  const progress = session?.user
+  const progress = session?.user?.id
     ? await getDb().checklistProgress.findMany({
         where: { userId: session.user.id },
         orderBy: { updatedAt: "desc" },
