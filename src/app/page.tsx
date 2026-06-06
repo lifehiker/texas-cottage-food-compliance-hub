@@ -14,7 +14,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SourceCitation } from "@/components/layout/source-citation";
 import { TemplateCard } from "@/components/templates/template-card";
-import { FaqSchema } from "@/components/layout/faq-schema";
 
 export const metadata = buildMetadata(
   "Texas cottage food labels, checklists, and eligibility workflows",
@@ -43,7 +42,6 @@ const workflowCards = [
 export default function HomePage() {
   return (
     <div className="space-y-16 pb-16">
-      <FaqSchema />
       <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 pt-12 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:pt-20">
         <Card className="overflow-hidden p-8 sm:p-10">
           <Badge>Texas-specific workflow</Badge>
