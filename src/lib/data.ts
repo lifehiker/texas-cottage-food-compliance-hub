@@ -7,28 +7,26 @@ import { templates } from "@/lib/content";
 export async function ensureTemplateSeed() {
   const db = getDb();
 
-  await Promise.all(
-    templates.map((template) =>
-      db.template.upsert({
-        where: { slug: template.slug },
-        update: {
-          title: template.title,
-          category: template.category,
-          summary: template.summary,
-          prefillData: template.prefillData as Prisma.InputJsonValue,
-          isPremium: template.isPremium,
-        },
-        create: {
-          slug: template.slug,
-          title: template.title,
-          category: template.category,
-          summary: template.summary,
-          prefillData: template.prefillData as Prisma.InputJsonValue,
-          isPremium: template.isPremium,
-        },
-      }),
-    ),
-  );
+  for (const template of templates) {
+    await db.template.upsert({
+      where: { slug: template.slug },
+      update: {
+        title: template.title,
+        category: template.category,
+        summary: template.summary,
+        prefillData: template.prefillData as Prisma.InputJsonValue,
+        isPremium: template.isPremium,
+      },
+      create: {
+        slug: template.slug,
+        title: template.title,
+        category: template.category,
+        summary: template.summary,
+        prefillData: template.prefillData as Prisma.InputJsonValue,
+        isPremium: template.isPremium,
+      },
+    });
+  }
 }
 
 export async function getSessionUser() {
