@@ -27,7 +27,7 @@ export default async function DashboardChecklistsPage() {
             <Card key={entry.id} className="p-6">
               <h2 className="text-xl font-semibold capitalize text-brand-dark">{entry.type}</h2>
               <p className="mt-3 text-sm text-muted">
-                {(entry.completedItems as string[]).length} saved items complete
+                {Array.isArray(entry.completedItems) ? entry.completedItems.length : 0} saved items complete
               </p>
             </Card>
           ))
