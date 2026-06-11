@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardLabelsPage() {
   const session = await auth();
 
-  const labels = session?.user
+  const labels = session?.user?.id
     ? await getDb().labelDocument.findMany({
         where: { userId: session.user.id },
         orderBy: { updatedAt: "desc" },
