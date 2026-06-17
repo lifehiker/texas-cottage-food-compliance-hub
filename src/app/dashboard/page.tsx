@@ -17,7 +17,11 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  await ensureTemplateSeed();
+  try {
+    await ensureTemplateSeed();
+  } catch {
+    // seed already exists or write-lock contention; proceed
+  }
   const db = getDb();
   const [labels, checklists, templateCount] = await Promise.all([
     db.labelDocument.findMany({

@@ -9,7 +9,11 @@ export const dynamic = "force-dynamic";
 export default async function DashboardTemplatesPage() {
   const session = await auth();
 
-  await ensureTemplateSeed();
+  try {
+    await ensureTemplateSeed();
+  } catch {
+    // seed already exists or write-lock contention; proceed with existing rows
+  }
   const rows = await getDb().template.findMany({ orderBy: { title: "asc" } });
 
   const templates = rows.map((row) => ({
